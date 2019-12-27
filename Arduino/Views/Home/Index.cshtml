@@ -1,0 +1,94 @@
+﻿@using Arduino.ViewModels
+@model FirebaseCekilenVeriler
+@{
+    ViewBag.Title = "Ana Sayfa";
+}
+<div class="row">
+    <div class="col-sm-4">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Anlık Değerler</th>
+                    <th>Anlık olarak güncellenen değerler</th>
+                </tr>
+                <tr>
+                    <th>Sıcaklık</th>
+                    <td>@ViewBag.Sicaklik</td>
+                </tr>
+                <tr>
+                    <th>Nem</th>
+                    <td>%@ViewBag.Nem</td>
+                </tr>
+                <tr>
+                    <th>Ağırlık</th>
+                    <td>@ViewBag.Agirlik g</td>
+                </tr>
+                <tr>
+                    <th>Su Seviyesi</th>
+                    <td>%@ViewBag.SuSeviyesi</td>
+                </tr>
+                <tr>
+                    <th>Yangın Durumu</th>
+                    <td>@ViewBag.Yangin</td>
+                </tr>
+                <tr>
+                    <th>Hareket Durumu</th>
+                    <td>@ViewBag.Hareket</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-8">
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>Manuel Değerler</th>
+                    <th colspan="3">Sisteme manuel olarak müdahale etmek için bu alanı kullanabilirsiniz.</th>
+                </tr>
+                <tr>
+                    @using (Html.BeginForm("SicaklikDegistir", "Home", FormMethod.Post))
+                    {
+                        <th>Sıcaklık:</th>
+                        <td>@Html.TextBoxFor(m => m.GidenSicaklik, new { @class = "form-control", placeholder = "Sıcaklık Giriniz", min = 0, max = 50, type = "number" })</td>
+                        <td colspan="2"><button type="submit" class="btn btn-danger">Onayla</button></td>
+                    }
+                </tr>
+                <tr>
+                    @using (Html.BeginForm("NemDegistir", "Home", FormMethod.Post))
+                    {
+                        <th>Nem:</th>
+                        <td>@Html.TextBoxFor(m => m.GidenNem, new { @class = "form-control", placeholder = "Nem Değeri Giriniz", min = 0, max = 100, type = "number" })</td>
+                        <td colspan="2"><button type="submit" class="btn btn-danger">Onayla</button></td>
+                    }
+                </tr>
+                <tr>
+                    @using (Html.BeginForm("YemDegistir", "Home", FormMethod.Post))
+                    {
+                        <th>Yem Koy:</th>
+                        <td><label>Evet</label>@Html.RadioButtonFor(m => m.YemDurumu, new { value = "1" })</td>
+                        <td><label>Hayır</label>@Html.RadioButtonFor(m => m.YemDurumu, new { value = "0" })</td>
+                        <td><button type="submit" class="btn btn-danger">Onayla</button></td>
+                    }
+                </tr>
+                <tr>
+                    @using (Html.BeginForm("SuDegistir", "Home", FormMethod.Post))
+                    {
+                        <th>Su Koy:</th>
+                        <td><label>Evet</label>@Html.RadioButtonFor(m => m.SuDurumu, new { value = "1" })</td>
+                        <td><label>Hayır</label>@Html.RadioButtonFor(m => m.SuDurumu, new { value = "0" })</td>
+                        <td><button type="submit" class="btn btn-danger">Onayla</button></td>
+                    }
+                </tr>
+                <tr>
+                    @using (Html.BeginForm("AlarmDurumu", "Home", FormMethod.Post))
+                    {
+                        <th>Alarm:</th>
+                        <td><label>Çalıştır</label>@Html.RadioButtonFor(m => m.Alarm, new { value = "1" })</td>
+                        <td><label>Durdur</label>@Html.RadioButtonFor(m => m.Alarm, new { value = "0" })</td>
+                        <td><button type="submit" class="btn btn-danger">Onayla</button></td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
